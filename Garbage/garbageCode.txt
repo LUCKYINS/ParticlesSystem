@@ -1,0 +1,26 @@
+#Code1:
+    const color = Array("Blue", "Red", "Yellow", "Pink", "Green", "Brown", "Gray", "White", "Cyon", "Purple")
+    ctx.fillStyle = "white"
+
+    class Particles{
+        constructor(number){
+            this.number = number
+        }
+        makeParticles(){
+            for (let i = 0; i < this.number; i++){
+                ctx.fillStyle = color[i % 10]
+                ctx.fillRect(Math.random()* window.innerWidth, Math.random()*window.innerHeight,
+            Math.random()*100, Math.random()*100)
+            }
+        }
+    }
+    let x = new Particles(100)
+
+    function render(){
+        ctx.clearRect(0,0,window.innerWidth, window.innerHeight)// Erase
+        // Draw
+        x.makeParticles()
+        // Draw
+        requestAnimationFrame(render)// loop
+    }
+    render()
