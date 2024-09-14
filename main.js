@@ -75,7 +75,7 @@ class ParticlesGenerator{
             let x = window.innerWidth*Math.random()
             let y = window.innerHeight*Math.random()
             let radius = 15 + Math.random()*20 
-            let pColor = color[i%5]
+            let pColor = `hsl(${x}, 100%, ${40+ Math.random()*50}%)`
             let vx = (Math.random() >= 0.5) ? Math.random()*5 : - Math.random()*5
             let vy = (Math.random() >= 0.5) ? Math.random()*5 : - Math.random()*5
             this._particlesArray.push(new Particle(x, y, radius, pColor , vx, vy))
@@ -117,7 +117,6 @@ class ParticlesGenerator{
                 particle._vy *=-1
             }
         }
-
     }
 
     //set Particles
