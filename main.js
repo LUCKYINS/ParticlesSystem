@@ -10,15 +10,13 @@ const particlesNumber = document.getElementById("particleNumber");
 let cWidth = window.innerWidth;
 let cHeight = window.innerHeight;
 canvas.width = cWidth;
-canvas.height = cHeight
+canvas.height = cHeight;
 
 // Input Value
 let particlesNumberValue = -1;
-let vxValue = -1;
 
 // Canvas context
 const ctx = canvas.getContext("2d");
-color = Array("blue", "red", "cyan", "white", "pink", "green");
 
 
 // Uniform rectilinear movement
@@ -39,24 +37,23 @@ class Particle{
         this._vy = vy;
     
     }
-    getX(){
-        return this._x;
-    }
-    getY(){
-        return this._y;
-    }
-    getRadius(){
-        return this._radius;
-    }
-    getColor(){
-        return this._color;
-    }
-    getVX(){
-        return this._vx;
-    }
-    getVY(){
-        return this._vy;
-    }
+    // Get functions
+    getX(){return this._x;}
+    getY(){return this._y;}
+    getRadius(){return this._radius;}
+    getColor(){return this._color;}
+    getVX(){return this._vx;}
+    getVY(){return this._vy;}
+
+    // Set functions
+    setX(value){this._x = value;}
+    setY(value){ this._y = value;}
+    setRadius(value){ this._radius = value;}
+    setColor(value){ this._color = value;}
+    setVX(value){ this._vx = value;}
+    setVY(value){ this._vy = value;}
+
+
 }
 
 //Particle class
@@ -65,20 +62,22 @@ class ParticlesGenerator{
     constructor(number){
         this._number = number;
         this._particlesArray = Array();
+        this._pX,this._pY,this._pRadius, this._pColor, this._pVX, this._pVY
         this.makeParticles();
+
     }
 
     //make Particles
     makeParticles(){
         for (let i= 0; i < this._number; i++){
             // Create an Array of particles
-            let x = window.innerWidth*Math.random()
-            let y = window.innerHeight*Math.random()
-            let radius = 15 + Math.random()*20 
-            let pColor = `hsl(${x}, 100%, ${40+ Math.random()*50}%)`
-            let vx = (Math.random() >= 0.5) ? Math.random()*5 : - Math.random()*5
-            let vy = (Math.random() >= 0.5) ? Math.random()*5 : - Math.random()*5
-            this._particlesArray.push(new Particle(x, y, radius, pColor , vx, vy))
+            this._pX = window.innerWidth*Math.random();
+            this._pY = window.innerHeight*Math.random();
+            this._pRadius = 15 + Math.random()*20;
+            this._pColor = `hsl(${this._pX}, 100%, ${40+ Math.random()*50}%)`;
+            this._pVX = (Math.random() >= 0.5) ? Math.random()*5 : - Math.random()*5;
+            this._pVY = (Math.random() >= 0.5) ? Math.random()*5 : - Math.random()*5;
+            this._particlesArray.push(new Particle(this._pX,this._pY,this._pRadius, this._pColor, this._pVX, this._pVY));
         }
     }
 
@@ -86,35 +85,35 @@ class ParticlesGenerator{
     updateParticles(particle){
         //movement
         if (particle.getVX()> 0){
-            if (particle._x+particle._radius < window.innerWidth){
-                particle._x = URM(particle._x, particle.getVX())
+            if (particle.getX()+particle.getRadius() < cWidth){
+                particle.setX(URM(particle.getX(), particle.getVX()))
             }
             else{
-                particle._vx *=-1
+                particle.setVX(-particle.getVX())
             }
         }
         if (particle.getVX()< 0){
-            if (particle._x-particle._radius > 0){
-                particle._x = URM(particle._x, particle.getVX())
+            if (particle.getX()-particle.getRadius() > 0){
+                particle.setX(URM(particle.getX(), particle.getVX())) 
             }
             else{
-                particle._vx *=-1
+                particle.setVX(-particle.getVX())
             }
         }
         if (particle.getVY()> 0){
-            if (particle._y+particle._radius < window.innerHeight){
-                particle._y = URM(particle._y, particle.getVY())
+            if (particle.getY()+particle.getRadius() < cHeight){
+                particle.setY(URM(particle.getY(), particle.getVY()))
             }
             else{
-                particle._vy *=-1
+                particle.setVY(-particle.getVY())
             }
         }
         if (particle.getVY()< 0){
-            if (particle._y-particle._radius > 0){
-                particle._y = URM(particle._y, particle.getVY())
+            if (particle.getY()-particle.getRadius() > 0){
+                particle.setY(URM(particle.getY(), particle.getVY()))
             }
             else{
-                particle._vy *=-1
+                particle.setVY(-particle.getVY())
             }
         }
     }
